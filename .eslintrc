@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:gatsby/recommended"
+  ],
+  "plugins": ["gatsby"],
+  "rules": {
+    // "gatsby/no-anonymous-exports-page-templates": "error",
+    "no-anonymous-exports-page-templates": "off",
+    "limited-exports-page-templates": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state", "res"] }],
+    "react/react-in-jsx-scope": 0,
+    "comma-dangle": 0,
+    "radix": 0,
+    "max-len": [
+      2,
+      {
+        "code": 120,
+        "ignorePattern": "^import"
+      }
+    ],
+    "jsx-a11y/label-has-for": 0,
+    "react/no-danger": 0,
+    "import/order": ["error", {
+    "groups": ["external", ["internal", "parent", "sibling", "index"], "unknown"],
+    "pathGroups": [
+      {
+        "pattern": "*.+(css|sass|less|scss|pcss|styl)*(?*)",
+        "patternOptions": {
+          "matchBase": true
+        },
+        "group": "unknown"
+      }
+    ],
+    "newlines-between": "always"
+  }],
+  "import/no-extraneous-dependencies": ["error", {"devDependencies": false}],
+  "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+  "react/jsx-props-no-spreading": "off"
+  }
+}

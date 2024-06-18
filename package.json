@@ -1,0 +1,52 @@
+{
+  "name": "example-gatsby",
+  "version": "1.0.0",
+  "private": true,
+  "description": "example-gatsby",
+  "author": "ViktorKorotkyi",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit --skipLibCheck && eslint . --max-warnings=0"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^3.0.1",
+    "autoprefixer": "^10.4.19",
+    "gatsby": "^5.13.5",
+    "gatsby-plugin-image": "^3.13.1",
+    "gatsby-plugin-manifest": "^5.13.1",
+    "gatsby-plugin-mdx": "^5.13.1",
+    "gatsby-plugin-postcss": "^6.13.1",
+    "gatsby-plugin-sharp": "^5.13.1",
+    "gatsby-plugin-sitemap": "^6.13.1",
+    "gatsby-source-contentful": "^8.13.2",
+    "gatsby-source-filesystem": "^5.13.1",
+    "gatsby-transformer-sharp": "^5.13.1",
+    "postcss": "^8.4.38",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-gatsby": "^1.0.2",
+    "eslint-webpack-plugin": "^4.2.0",
+    "gatsby-plugin-eslint": "^4.0.4",
+    "typescript": "^5.4.5"
+  }
+}
