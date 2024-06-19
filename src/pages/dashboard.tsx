@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 
 import useStore from '../store/test.ts';
+import useStoreFetch from '../store/testFetch.ts';
 import { logoutTest } from '../utils/authMock.ts';
 import PrivateRoute from '../components/PrivateRoute.tsx';
 
@@ -10,14 +11,32 @@ function DashboardPage() {
   const increaseCount = useStore((state) => state.increaseCount);
   const decreaseCount = useStore((state) => state.decreaseCount);
 
+  const { catFact, error, fetchCatFact } = useStoreFetch();
+
+  useEffect(() => {
+    fetchCatFact();
+  }, [fetchCatFact]);
+
   return (
-    <main className="w-full min-h-screen flex items-center justify-center bg-[#c6def4]">
-      <div className="w-[500px] flex items-center justify-between flex-col border p-6 pb-12 rounded-lg bg-[#fff]">
-        <h1 className="text-[36px] z-10 font-bold mb-4">
-          DASHBOARD
-        </h1>
-        <div className="mt-4 mb-4 w-full flex flex-col items-center">
-          <span className="mb-2 text-base">State example</span>
+    <main className="w-full min-h-screen flex justify-center bg-[#c6def4] p-6">
+      <div
+        className="w-full flex flex-col p-6 pb-12 rounded-lg bg-[#fff] "
+      >
+        <div className="w-full flex items-center mb-10 justify-between border-b-2 border-black">
+          <h1 className="text-[36px] z-10 font-bold ">
+            DASHBOARD
+          </h1>
+          <button
+            className="w-20 h-10 text-base rounded-md bg-slate-400 hover:opacity-80"
+            onClick={logoutTest}
+            type="button"
+          >
+            Logout
+          </button>
+        </div>
+
+        <div className=" w-[30%] max-w-140 mb-10 flex flex-col items-center">
+          <span className="mb-2 text-base">State counter example</span>
           <span className="mb-2 text-base">
             {count}
           </span>
@@ -38,24 +57,13 @@ function DashboardPage() {
             </button>
           </div>
         </div>
-        <span>
-          What is Lorem Ipsum?
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type
-          specimen book. It has survived not only five centuries, but also the leap into
-          electronic typesetting, remaining essentially unchanged. It was popularised in the
-          1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including versions of
-          Lorem Ipsum.
-        </span>
-        <button
-          className="w-[80%] h-[40px] text-base rounded-md bg-slate-400 hover:opacity-80 mt-6"
-          onClick={logoutTest}
-          type="button"
-        >
-          Logout
-        </button>
+        <div className="w-full border-1 flex flex-col">
+          <h2 className="text-xl mb-2 font-bold">Info about Cat:</h2>
+          <span>
+            {catFact || error || 'No cat fact available'}
+          </span>
+        </div>
+
       </div>
     </main>
   );
