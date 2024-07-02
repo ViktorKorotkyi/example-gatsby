@@ -22,6 +22,7 @@ const config: GatsbyConfig = {
   },
   graphqlTypegen: true,
   plugins: [
+    'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-source-contentful',
       options: {
@@ -32,7 +33,6 @@ const config: GatsbyConfig = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-postcss',
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',

@@ -10,6 +10,9 @@ export default interface IBlogPageProps {
       image: {
         url: string;
       };
+      content: {
+        raw: string;
+      }
     };
   };
 };
