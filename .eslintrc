@@ -7,6 +7,8 @@
   ],
   "plugins": ["gatsby"],
   "rules": {
+    "semi": [2, "always"],
+    "no-extra-semi": "off",
     // "gatsby/no-anonymous-exports-page-templates": "error",
     "no-anonymous-exports-page-templates": "off",
     "limited-exports-page-templates": "off",

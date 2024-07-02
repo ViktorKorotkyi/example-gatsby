@@ -1,15 +1,16 @@
 import React from 'react';
 import { navigate } from 'gatsby';
 
-interface PrivateRouteProps {
-  component: React.FC;
-  location?: Location;
+import IBlogPageProps from '../interfaces/IBlogPageProps.ts';
 
+interface PrivateBlogRouteProps {
+  component: React.FC<IBlogPageProps>;
+  location?: Location;
 }
 
-function PrivateRoute({
+function PrivateBlogRoute({
   component: Component, location, ...rest
-}: Readonly<PrivateRouteProps>) {
+}: Readonly<PrivateBlogRouteProps>) {
   const isLoggedIn = typeof window !== 'undefined' && localStorage.getItem('token');
 
   if (!isLoggedIn && location && location.pathname !== '/') {
@@ -20,8 +21,8 @@ function PrivateRoute({
   return <Component {...rest} />;
 }
 
-PrivateRoute.defaultProps = {
+PrivateBlogRoute.defaultProps = {
   location: undefined,
 };
 
-export default PrivateRoute;
+export default PrivateBlogRoute;

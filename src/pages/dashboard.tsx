@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
+import { Link } from 'gatsby';
 
 import useStore from '../store/test.ts';
 import useStoreFetch from '../store/testFetch.ts';
@@ -23,9 +24,15 @@ function DashboardPage() {
         className="w-full flex flex-col p-6 pb-12 rounded-lg bg-[#fff] "
       >
         <div className="w-full flex items-center mb-10 justify-between border-b-2 border-black">
-          <h1 className="text-[36px] z-10 font-bold ">
-            DASHBOARD
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-[36px] z-10 font-bold ">
+              DASHBOARD
+            </h1>
+            <div className="flex items-center justify-between ml-10">
+              <Link to="/blogs/blog-1" className="text-2xl hover:opacity-70 mr-5">Blog 1</Link>
+              <Link to="/blogs/blog-2" className="text-2xl hover:opacity-70">Blog 2</Link>
+            </div>
+          </div>
           <button
             className="w-20 h-10 text-base rounded-md bg-slate-400 hover:opacity-80"
             onClick={logoutTest}

@@ -4,3 +4,4 @@
 __mocks__
 /public/nextparticle.min.js
 gatsby-config.ts
+gatsby-node.js
