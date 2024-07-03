@@ -1,29 +1,34 @@
 import React, { useState } from 'react';
 import {
-  useStaticQuery, graphql, navigate, HeadFC,
+  graphql, navigate, HeadFC, PageProps
 } from 'gatsby';
+import {
+  Trans, useTranslation, Link, useI18next
+} from 'gatsby-plugin-react-i18next';
 
 import { loginTest } from '../utils/authMock.ts';
 
-function IndexPage() {
+interface MainPageData {
+  contentfulMainPage: {
+    id: string;
+    title: string;
+    description: {
+      raw: string;
+    };
+    background: {
+      url: string;
+    };
+  };
+}
+
+type Props = PageProps<MainPageData>;
+
+function IndexPage({ data }: Props) {
+  const { t } = useTranslation();
+  const { languages, originalPath } = useI18next();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const { contentfulMainPage } = useStaticQuery(graphql`
-    query MyQuery {
-      contentfulMainPage {
-        id
-        title
-        description {
-          raw
-        }
-        background {
-          url
-        }
-      }
-    }
-  `);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
@@ -34,13 +39,13 @@ function IndexPage() {
   };
 
   const handleSubmit = async () => {
-    const data = await loginTest(login, password);
+    const dataRequest = await loginTest(login, password);
 
-    if (data?.status === 'ok' && data?.token) {
-      localStorage.setItem('token', data?.token);
+    if (dataRequest?.status === 'ok' && dataRequest?.token) {
+      localStorage.setItem('token', dataRequest?.token);
       navigate('/dashboard/');
     } else {
-      setError(data.status);
+      setError(dataRequest.status);
     }
   };
 
@@ -50,11 +55,33 @@ function IndexPage() {
         className="w-[500px] h-[450px] flex items-center justify-between flex-col border p-6 pb-12 rounded-lg bg-[#fff]"
       >
         <h1 className="text-[36px] z-10 font-bold">
-          {contentfulMainPage.title}
+          { data?.contentfulMainPage?.title || '' }
         </h1>
+        <div className="w-full max-w-[80%] flex items-center justify-between">
+          <span>
+            <Trans>Welcome to my Gatsby site!</Trans>
+          </span>
+
+          <ul className="flex items-center gap-x-3">
+            {languages.map((lng) => (
+              <li key={lng}>
+                <Link
+                  to={originalPath}
+                  language={lng}
+                  placeholder="Language Link"
+                  className="flex justify-center items-center w-[35px] border-2 rounded-md p-1"
+                >
+                  {lng}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+        </div>
+
         <div className="w-full flex flex-col items-center justify-between">
           <div className="w-[80%] mb-4">
-            <p className="mb-2">Login</p>
+            <p className="mb-2">{t('Login')}</p>
             <input value={login} onChange={handleChange} className="border w-full h-[40px] p-2" />
           </div>
           <div className="w-[80%]">
@@ -81,6 +108,30 @@ function IndexPage() {
 }
 
 export default IndexPage;
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(filter: {ns: {in: ["home",]}, language: {eq: $language}}) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+    contentfulMainPage {
+      id
+      title
+      description {
+        raw
+      }
+      background {
+        url
+      }
+    }
+  }
+`;
 
 export const Head: HeadFC = function Head() {
   return <title>Home Page</title>;
